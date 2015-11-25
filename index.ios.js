@@ -29,7 +29,12 @@ var Fam = React.createClass({
   render() {
     if (!this.state.loaded) return <View/>;
     if (this.state.token) {
-      return (<View style={styles.container}><Text>logged in</Text></View>);
+      return (
+        <View style={styles.container}>
+          <Text>logged in</Text>
+          <Text onPress={this.handleLogout}>log out</Text>
+        </View>
+      );
     } else if (this.state.loaded) {
       return <LoginForm onLoggedIn={this.handleLoggedIn}/>;
     }
@@ -39,6 +44,10 @@ var Fam = React.createClass({
     console.log(arguments);
     if (err) throw err;
     this.setState({token});
+  },
+
+  handleLogout() {
+    Session.logout(() => this.setState({token: null}));
   }
 });
 

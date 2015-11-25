@@ -29,10 +29,13 @@ var Session = {
       if (response.status == 201) {
         Storage.set(TOKEN_STORAGE_KEY, json.token, (err) => cb(err, json.token));
       } else {
-        console.warn(json.errors);
-        cb(json.message)
+        cb(json.errors)
       }
     });
+  },
+
+  logout(cb) {
+    Storage.delete(TOKEN_STORAGE_KEY, cb);
   }
 };
 

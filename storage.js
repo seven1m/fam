@@ -1,14 +1,18 @@
 'use strict';
 
-var React = require('react-native');
+var AsyncStorage = require('react-native').AsyncStorage;
 
 var Storage = {
   get(key, cb) {
-    React.AsyncStorage.getItem(key, cb);
+    AsyncStorage.getItem(key, cb);
   },
 
   set(key, value, cb) {
-    React.AsyncStorage.setItem(key, value, cb);
+    AsyncStorage.setItem(key, value, cb);
+  },
+
+  delete(key, cb) {
+    AsyncStorage.removeItem(key, cb);
   }
 };
 

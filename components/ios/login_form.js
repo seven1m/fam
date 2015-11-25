@@ -14,13 +14,15 @@ var LoginForm = React.createClass({
   getInitialState() {
     return {
       email: null,
-      password: null
+      password: null,
+      error: null
     };
   },
 
   render() {
     return (
       <View style={styles.container}>
+        {this.renderError()}
         <TextInput
           style={{
             height: 40,
@@ -52,12 +54,30 @@ var LoginForm = React.createClass({
     );
   },
 
+  renderError() {
+    if (this.state.error) {
+      return (
+        <Text style={{color: 'red'}}>{this.getErrorMessage()}</Text>
+      );
+    }
+  },
+
   handleLogin() {
     Session.login(
       this.state.email,
       this.state.password,
-      this.props.onLoggedIn
+      function(error, token) {
+        if (error) {
+          this.setState({error});
+        } else {
+          this.props.onLoggedIn(null, token);
+        }
+      }.bind(this)
     );
+  },
+
+  getErrorMessage() {
+    return this.state.error;
   }
 });
 
