@@ -8,8 +8,6 @@ var {
   View
 } = React;
 
-var Session = require('../../session');
-
 var LoginForm = React.createClass({
   getInitialState() {
     return {

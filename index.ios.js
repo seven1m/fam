@@ -9,8 +9,10 @@ var {
   View
 } = React;
 
-var Session = require('./session');
+global.Session = require('./session');
+
 var LoginForm = require('./components/ios/login_form');
+var FeedView = require('./components/ios/feed_view');
 
 var TOKEN_STORAGE_KEY = 'loginToken';
 
@@ -29,12 +31,7 @@ var Fam = React.createClass({
   render() {
     if (!this.state.loaded) return <View/>;
     if (this.state.token) {
-      return (
-        <View style={styles.container}>
-          <Text>logged in</Text>
-          <Text onPress={this.handleLogout}>log out</Text>
-        </View>
-      );
+      return <FeedView/>
     } else if (this.state.loaded) {
       return <LoginForm onLoggedIn={this.handleLoggedIn}/>;
     }
